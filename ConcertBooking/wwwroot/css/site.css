@@ -1,0 +1,235 @@
+
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-card: #151515;
+    --text-main: #ffffff;
+    --text-muted: #cfcfcf; 
+    --accent-gradient: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
+    --accent-color: #ff007f;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.text-accent {
+    color: var(--accent-color);
+}
+
+/* --- NAWIGACJA --- */
+.custom-navbar {
+    background-color: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 8px 0; 
+}
+
+.navbar-brand {
+    font-weight: 900;
+    letter-spacing: 1px;
+    font-size: 1.3rem; 
+}
+
+.nav-link {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    margin-right: 15px;
+    transition: color 0.2s;
+}
+
+    .nav-link:hover {
+        color: var(--accent-color) !important;
+    }
+
+/* --- PRZYCISKI (Call To Action) --- */
+.btn-primary {
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .btn-primary:hover, .btn-primary:focus {
+        background: var(--accent-gradient);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(255, 0, 127, 0.3);
+    }
+
+.btn-outline-light {
+    border: 2px solid #fff;
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .btn-outline-light:hover {
+        background-color: #fff;
+        color: var(--bg-dark);
+    }
+
+
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat fixed;
+    margin-top: -65px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.4) 0%, rgba(10, 10, 10, 1) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    
+    padding-top: 150px;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted); 
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+}
+
+/* --- KARTY (Features) --- */
+.feature-card {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 40px 30px;
+    height: 100%;
+    transition: transform 0.3s;
+}
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-card .text-muted {
+        color: var(--text-muted) !important; 
+    }
+
+.feature-icon {
+    font-size: 2.5rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+}
+
+/* --- TABELE --- */
+.table-dark {
+    background-color: var(--bg-card) !important;
+}
+
+    .table-dark th {
+        background-color: #111 !important;
+        border-bottom: 2px solid var(--accent-color) !important;
+        color: #fff !important;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    .table-dark td {
+        background-color: var(--bg-card) !important;
+        border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+        color: #e0e0e0 !important;
+    }
+
+.table-hover > tbody > tr:hover > * {
+    background-color: #1f1f1f !important;
+}
+
+
+.form-control:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(255, 0, 127, 0.25);
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.05) !important; 
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+    .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 0 0 0.25rem rgba(255, 0, 127, 0.25) !important;
+        color: #ffffff !important;
+    }
+
+
+.form-floating > .form-control::placeholder {
+    color: transparent !important;
+}
+
+
+.form-floating > .form-control:focus::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+
+.form-control:not(.form-floating .form-control)::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+
+.form-floating > label {
+    color: rgba(255, 255, 255, 0.6) !important; 
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: var(--accent-color) !important; 
+    background-color: transparent !important;
+}
+
+
+.form-check-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+    .form-check-input:checked {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+    }

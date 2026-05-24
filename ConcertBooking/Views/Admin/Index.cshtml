@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ConcertBooking.Models.Reservation>
+
+<div class="container mt-5 pt-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Panel Administratora</h2>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="feature-card shadow-sm" style="border-left: 4px solid #ffc107; padding: 30px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white opacity-75 text-uppercase fw-bold" style="letter-spacing: 1px;">Oczekujące rezerwacje</h6>
+                        <h1 class="fw-bold mb-0 text-white">@ViewBag.TotalPending</h1>
+                    </div>
+                    <div class="fs-1 text-warning opacity-75"><i class="bi bi-hourglass-split"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="feature-card shadow-sm" style="border-left: 4px solid #198754; padding: 30px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white opacity-75 text-uppercase fw-bold" style="letter-spacing: 1px;">Zatwierdzone bilety</h6>
+                        <h1 class="fw-bold mb-0 text-white">@ViewBag.TotalApproved</h1>
+                    </div>
+                    <div class="fs-1 text-success opacity-75"><i class="bi bi-check-circle"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="fw-bold mb-3">Zarządzanie Rezerwacjami</h4>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle" style="border-radius: 10px; overflow: hidden;">
+            <thead style="background-color: #111;">
+                <tr>
+                    <th class="py-3 text-muted">Użytkownik (Email)</th>
+                    <th class="py-3 text-muted">Koncert</th>
+                    <th class="py-3 text-muted">Data rezerwacji</th>
+                    <th class="py-3 text-muted">Status</th>
+                    <th class="py-3 text-muted">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-white opacity-75">@item.User.Email</td>
+                        <td class="fw-bold text-white">@item.Concert.ArtistName</td>
+                        <td class="text-white opacity-75">@item.ReservationDate.ToString("g")</td>
+                        <td>
+                            @if (item.Status == "Pending")
+                            {
+                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Oczekująca</span>
+                            }
+                            else if (item.Status == "Approved")
+                            {
+                                <span class="badge bg-success px-3 py-2 rounded-pill">Zatwierdzona</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger px-3 py-2 rounded-pill">Anulowana / Odrzucona</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Status == "Pending")
+                            {
+                                <form asp-action="ChangeStatus" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="hidden" name="newStatus" value="Approved" />
+                                    <button type="submit" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm me-1">
+                                        <i class="bi bi-check2-circle"></i> Zatwierdź
+                                    </button>
+                                </form>
+                                <form asp-action="ChangeStatus" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="hidden" name="newStatus" value="Cancelled" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 shadow-sm">
+                                        <i class="bi bi-x-circle"></i> Odrzuć
+                                    </button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

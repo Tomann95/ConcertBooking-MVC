@@ -1,0 +1,111 @@
+﻿@model IEnumerable<ConcertBooking.Models.Reservation>
+
+<div class="container mt-5 pt-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Moje Bilety</h2>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-dark border-secondary text-center py-5 shadow-lg" style="background-color: var(--bg-card); border-radius: 15px;">
+            <i class="bi bi-ticket-perforated fs-1 text-white opacity-50 d-block mb-3"></i>
+            <h4 class="text-white fw-bold">Nie masz jeszcze żadnych biletów.</h4>
+            <p class="text-white opacity-75 mb-4">Czas to zmienić i wybrać się na świetny koncert!</p>
+            <a asp-controller="Concerts" asp-action="Index" class="btn btn-primary">Przeglądaj wydarzenia</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle" style="border-radius: 10px; overflow: hidden;">
+                <thead style="background-color: #111;">
+                    <tr>
+                        <th class="py-3 text-muted">Koncert</th>
+                        <th class="py-3 text-muted">Data wydarzenia</th>
+                        <th class="py-3 text-muted">Status</th>
+                        <th class="py-3 text-muted">Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.Concert.ArtistName</td>
+                            <td>@item.Concert.EventDate.ToString("g")</td>
+                            <td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Oczekująca</span>
+                                }
+                                else if (item.Status == "Approved")
+                                {
+                                    <span class="badge bg-success px-3 py-2 rounded-pill">Zatwierdzona</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger px-3 py-2 rounded-pill">Anulowana</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Status != "Cancelled")
+                                {
+                                    <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#cancelModal"
+                                            data-reservation-id="@item.Id"
+                                            data-concert-name="@item.Concert.ArtistName">
+                                        <i class="bi bi-x-circle"></i> Anuluj
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white border-secondary" style="box-shadow: 0 15px 35px rgba(0,0,0,0.5);">
+            <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title fw-bold" id="cancelModalLabel">Potwierdzenie anulowania</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Czy na pewno chcesz anulować rezerwację na wydarzenie: <strong id="modalConcertName" class="text-accent"></strong>?<br />
+                <span class="text-muted small">Tej operacji nie można cofnąć. Pula biletów zostanie automatycznie powiększona.</span>
+            </div>
+            <div class="modal-footer border-top border-secondary">
+                <button type="button" class="btn btn-outline-light rounded-pill" data-bs-dismiss="modal">Zrezygnuj</button>
+
+                <form asp-action="Cancel" method="post">
+                    <input type="hidden" name="reservationId" id="modalReservationId" value="" />
+                    <button type="submit" class="btn btn-danger rounded-pill px-4">Tak, anuluj</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var cancelModal = document.getElementById('cancelModal');
+
+            cancelModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+
+                var resId = button.getAttribute('data-reservation-id');
+                var concertName = button.getAttribute('data-concert-name');
+
+                var modalTitle = cancelModal.querySelector('#modalConcertName');
+                var hiddenInput = cancelModal.querySelector('#modalReservationId');
+
+                modalTitle.textContent = concertName;
+                hiddenInput.value = resId;
+            });
+        });
+    </script>
+}

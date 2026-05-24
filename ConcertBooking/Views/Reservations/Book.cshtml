@@ -1,0 +1,33 @@
+﻿@model ConcertBooking.Models.Reservation
+
+<h2>Potwierdzenie rezerwacji</h2>
+<hr />
+
+<div class="card shadow-sm mb-4" style="max-width: 600px;">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Concert.ArtistName</h4>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.Concert.EventDate.ToString("f")</h6>
+        <p class="card-text">@Model.Concert.Description</p>
+
+        <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item"><strong>Cena:</strong> @Model.Concert.TicketPrice.ToString("c")</li>
+            <li class="list-group-item"><strong>Dostępne miejsca:</strong> @Model.Concert.AvailableSeats</li>
+        </ul>
+
+        @if (Model.Concert.AvailableSeats > 0)
+        {
+            <form asp-action="Book">
+                <input type="hidden" asp-for="ConcertId" />
+                <button type="submit" class="btn btn-success w-100">Potwierdzam i rezerwuję</button>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-danger">Niestety, wszystkie miejsca zostały wyprzedane.</div>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Concerts" asp-action="Index" class="btn btn-outline-secondary">Wróć do listy koncertów</a>
+</div>

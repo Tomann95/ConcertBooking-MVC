@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ConcertBooking.Models.Concert>
+
+<style>
+    
+    tr[aria-expanded="true"] .chevron-icon {
+        transform: rotate(180deg);
+    }
+
+    .chevron-icon {
+        transition: transform 0.3s ease;
+        display: inline-block;
+    }
+</style>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="5" class="text-center text-muted py-4">Nie znaleziono żadnych wydarzeń.</td></tr>
+}
+else
+{
+    @foreach (var item in Model)
+    {
+        <tr style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#desc-@item.Id" aria-expanded="false" aria-controls="desc-@item.Id">
+            <td class="fw-bold align-middle">
+                <i class="bi bi-chevron-down text-accent me-2 chevron-icon" style="font-size: 0.8rem;"></i>
+                @item.ArtistName
+            </td>
+            <td class="align-middle">@item.EventDate.ToString("g")</td>
+            <td class="align-middle">@item.TicketPrice.ToString("c")</td>
+            <td class="align-middle">@item.AvailableSeats</td>
+            <td class="align-middle">
+                <a asp-controller="Reservations" asp-action="Book" asp-route-concertId="@item.Id"
+                   class="btn btn-success btn-sm shadow-sm rounded-pill px-3"
+                   onclick="event.stopPropagation();">
+                    <i class="bi bi-cart-plus"></i> Rezerwuj
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="5" class="p-0 border-0">
+                <div class="collapse" id="desc-@item.Id">
+                    <div class="p-4" style="background-color: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 5px 10px rgba(0,0,0,0.2);">
+                        <h6 class="text-accent fw-bold mb-2">
+                            <i class="bi bi-info-circle me-2"></i>O wydarzeniu
+                        </h6>
+                        <p class="text-white mb-0" style="font-size: 0.95rem; line-height: 1.6; opacity: 0.9;">
+                            @(string.IsNullOrWhiteSpace(item.Description) ? "Brak dodatkowych informacji o tym wydarzeniu." : item.Description)
+                        </p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+}
