@@ -6,20 +6,20 @@ Nowoczesna aplikacja webowa oparta na wzorcu architektonicznym MVC (Model-View-C
 
 ## 📸 Zrzuty ekranu
 
-![Strona Główna]
+**[Strona Główna]**
 <img width="1892" height="880" alt="image" src="https://github.com/user-attachments/assets/6fe4da5a-01b9-4096-aa70-b9416918dfc7" />
 
 
 
-![Wydarzenia i Wyszukiwarka]
+**[Wydarzenia i Wyszukiwarka]**
 <img width="1918" height="870" alt="image" src="https://github.com/user-attachments/assets/410c0c74-08c6-466a-8623-215619978e7c" />
 
 
-![Panel Administratora]
+**[Panel Administratora]**
 <img width="1893" height="863" alt="image" src="https://github.com/user-attachments/assets/1fc35778-a1a7-4fd0-b820-ae38b1811fee" />
 
 
-![Kalendarz]
+**[Kalendarz]**
 <img width="1891" height="874" alt="image" src="https://github.com/user-attachments/assets/bba7b75b-46f3-4680-a969-758a4fd4d488" />
 
 ---
